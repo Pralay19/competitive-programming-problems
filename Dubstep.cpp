@@ -4,7 +4,6 @@ using namespace std;
 int main(){
 	string str;
 	cin>>str;
-	int i=0;
 	string ans="";
 	while(str.find("WUB")<1){
 		str=str.substr(3);
@@ -22,4 +21,5 @@ int main(){
 		// cout<<str<<endl;
 	}
 	cout<<str;
+	
 }
