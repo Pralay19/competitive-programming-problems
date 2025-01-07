@@ -27,37 +27,22 @@ cin.tie(0); cout.tie(0);
 	while(t--){
 		int n;
 		cin>>n;
-		map<int,int>mpp;
+		// vector<int>arr(n);
 		int i=0;
-		// vector<char>str(n);
-		// bool b=false;
-		int count=0;
+		int mstart;
+		bool ans=true;
 		while(i<n){
-			// cin>>str[i];
-			char c;
-			cin>>c;
-			if(c!='#'){
-				count++;
+			int a;
+			cin>>a;
+			if(i==0){
+				mstart=a;
 			}
-			else{
-				mpp[count]++;
-				count=0;
+			if(a<mstart){
+				ans=false;
 			}
 			i++;
 		}
-		mpp[count]++;
-
-		bool a=false;
-		int ans=0;
-		for(auto it:mpp){
-			if(it.first>=3){
-				a=true;
-				break;
-			}
-			ans+=it.first*(it.second);
-		}
-		if(!a) cout<<ans<<endl;
-		else cout<<2<<endl;
-		
+		if(!ans) cout<<"NO"<<endl;
+		else cout<<"YES"<<endl;
 	}
 }

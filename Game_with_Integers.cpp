@@ -27,37 +27,7 @@ cin.tie(0); cout.tie(0);
 	while(t--){
 		int n;
 		cin>>n;
-		map<int,int>mpp;
-		int i=0;
-		// vector<char>str(n);
-		// bool b=false;
-		int count=0;
-		while(i<n){
-			// cin>>str[i];
-			char c;
-			cin>>c;
-			if(c!='#'){
-				count++;
-			}
-			else{
-				mpp[count]++;
-				count=0;
-			}
-			i++;
-		}
-		mpp[count]++;
-
-		bool a=false;
-		int ans=0;
-		for(auto it:mpp){
-			if(it.first>=3){
-				a=true;
-				break;
-			}
-			ans+=it.first*(it.second);
-		}
-		if(!a) cout<<ans<<endl;
-		else cout<<2<<endl;
-		
+		if(n%3) cout<<"First"<<endl;
+		else cout<<"Second"<<endl;
 	}
 }
