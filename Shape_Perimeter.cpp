@@ -21,9 +21,27 @@ using namespace std;
 int main(){
 ios_base::sync_with_stdio(0);
 cin.tie(0); cout.tie(0);
-	
-	ll n;
-	cin>>n;
+    
+    int t;
+    cin>>t;
 
-	cout<<(ll)n/2520;
+    while(t--){
+        int n,m;
+        cin>>n>>m;
+
+        int i=1,x=0,y=0;
+        int peri=m;
+        cin>>x>>y;
+        while(i<n){
+            cin>>x>>y;
+            peri+=x+y;
+            i++;
+        }
+        if(n<2){
+            cout<<4*m<<endl;
+            continue;
+        }
+        peri+=m;
+        cout<<peri*2<<endl;
+    }
 }

@@ -1,51 +1,57 @@
-#include <algorithm>
-#include <cmath>
-#include <cstdlib>
-#include <cstdio>
-#include <cstring>
-#include <ctime>
 #include <iostream>
-#include <map>
-#include <set>
-#include <string>
 #include <vector>
- 
-#define max(a, b) (((a) > (b)) ? (a) : (b))
-#define min(a, b) (((a) > (b)) ? (b) : (a))
-#define abs(a) (((a) > 0) ? (a) : (-(a)))
- 
-typedef long long ll;
- 
+#include <algorithm>
+#include <queue>
 using namespace std;
 
-int main(){
-ios_base::sync_with_stdio(0);
-cin.tie(0); cout.tie(0);
+bool isPossible(vector<vector<int>>& decks, vector<int>& order) {
+    int n = decks.size();
+    vector<int> pointers(n, 0);
+    int top = -1;
 
-    int r,c;
-    cin>>r>>c;
-
-    vector<string> mat(r);
-    for(int i=0;i<r;i++){
-    	cin>>mat[i];
-    }
-
-    vector<vector<int>> ht(r,vector<int>(c,0));
-    for(int j=0;j<c;j++){
-        for(int i=0;i<r;i++){
-            ht[i][j]=(mat[i][j]=='1')?(i==0?1:ht[i-1][j]+1):0;
+    for (int round = 0; round < decks[0].size(); ++round) {
+        for (int cow : order) {
+            while (pointers[cow] < decks[cow].size() && decks[cow][pointers[cow]] <= top) {
+                ++pointers[cow];
+            }
+            if (pointers[cow] == decks[cow].size()) return false;
+            top = decks[cow][pointers[cow]++];
         }
     }
+    return true;
+}
 
-    int maxA=0;
-    for(int i=0;i<r;i++){
-        vector<int> sh=ht[i];
-        sort(sh.begin(),sh.end(),greater<int>());
-        // sort(sh.begin(),sh.end());
-        for(int j=0;j<c;j++){
-            maxA=max(maxA,sh[j]*(j+1));
+int main() {
+    int t;
+    cin >> t;
+    while (t--) {
+        int n, m;
+        cin >> n >> m;
+        vector<vector<int>> decks(n, vector<int>(m));
+        for (int i = 0; i < n; ++i) {
+            for (int j = 0; j < m; ++j) {
+                cin >> decks[i][j];
+            }
+            sort(decks[i].begin(), decks[i].end());
+        }
+
+        vector<pair<int, int>> cows;
+        for (int i = 0; i < n; ++i) {
+            cows.emplace_back(decks[i][0], i);
+        }
+        sort(cows.begin(), cows.end());
+
+        vector<int> order;
+        for (auto& cow : cows) {
+            order.push_back(cow.second);
+        }
+
+        if (isPossible(decks, order)) {
+            for (int i = 0; i < n; ++i) cout << order[i] + 1 << " ";
+            cout << endl;
+        } else {
+            cout << -1 << endl;
         }
     }
-    cout<<maxA<<endl;
     return 0;
 }
